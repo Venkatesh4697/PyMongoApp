@@ -1,12 +1,10 @@
 FROM python:3.11.0a6-alpine3.15
 
-RUN apk update
-RUN apk add git
-RUN git clone https://github.com/Venkatesh4697/PyMongoApp.git
-WORKDIR /PyMongoApp
+WORKDIR /app
 
-RUN pip install Flask-PyMongo Flask-Cors PyJWt
+COPY requirements.txt requirements.txt
+RUN pip install -r requirements.txt
 
-COPY . /PyMongoApp
+COPY . .
 
-CMD python app.py 
+CMD ["python", "-m", "flask", "run", "--host=0.0.0.0"]
